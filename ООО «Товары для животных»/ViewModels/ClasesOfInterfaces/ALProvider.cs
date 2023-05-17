@@ -3,8 +3,9 @@ using System.Linq;
 using System.Windows;
 using ООО__Товары_для_животных_.Database;
 using ООО__Товары_для_животных_.Models;
+using ООО__Товары_для_животных_.Tools.Interfaces;
 
-namespace ООО__Товары_для_животных_
+namespace ООО__Товары_для_животных_.ViewModels.ClasesOfInterfaces
 {
     public class ALProvider : IDbProvider
     {

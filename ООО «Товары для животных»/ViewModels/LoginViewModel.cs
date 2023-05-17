@@ -7,6 +7,7 @@ using System.Windows.Threading;
 using ООО__Товары_для_животных_.Database;
 using ООО__Товары_для_животных_.Models;
 using ООО__Товары_для_животных_.Tools;
+using ООО__Товары_для_животных_.ViewModels.ClasesOfInterfaces;
 using ООО__Товары_для_животных_.Views.Pages;
 
 namespace ООО__Товары_для_животных_.ViewModels;

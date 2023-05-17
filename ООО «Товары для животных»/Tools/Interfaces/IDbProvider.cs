@@ -1,4 +1,4 @@
-﻿namespace ООО__Товары_для_животных_
+﻿namespace ООО__Товары_для_животных_.Tools.Interfaces
 {
     public interface IDbProvider //это сам интерфейс
     {

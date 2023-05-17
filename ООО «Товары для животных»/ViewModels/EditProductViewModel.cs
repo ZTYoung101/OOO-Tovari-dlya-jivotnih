@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 using ООО__Товары_для_животных_.Database;
 using ООО__Товары_для_животных_.Models;
 using ООО__Товары_для_животных_.Tools;
+using ООО__Товары_для_животных_.Tools.Interfaces;
 using ООО__Товары_для_животных_.Views.Pages;
 
 namespace ООО__Товары_для_животных_.ViewModels;
@@ -30,16 +31,16 @@ internal class EditProductViewModel : ViewModel
 
     private readonly Product original;
 
-    public EditProductViewModel(Product edit, MainViewModel mainViewModel)
+    public EditProductViewModel(Product edit, MainViewModel mainViewModel, GetModels getmodels)
     {
         original = edit;
 
         CanEditArticle = !string.IsNullOrEmpty(edit.ProductArticleNumber);
         var db = DB.Instance;
-        
-        Manufacturers = db.Manufacturers.ToList();
-        Categories = db.Categories.ToList();
-        Providers = db.Providers.ToList();
+
+        Manufacturers = getmodels.GetManufacturesList();
+        Categories = getmodels.GetCategoriesList(); 
+        Providers = getmodels.GetProvidersList();
 
         EditProduct = new Product
         {

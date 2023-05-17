@@ -8,6 +8,8 @@ using System.Windows.Media.Imaging;
 using ООО__Товары_для_животных_.Database;
 using ООО__Товары_для_животных_.Models;
 using ООО__Товары_для_животных_.Tools;
+using ООО__Товары_для_животных_.Tools.Interfaces;
+using ООО__Товары_для_животных_.ViewModels.ClasesOfInterfaces;
 using ООО__Товары_для_животных_.Views.Pages;
 
 namespace ООО__Товары_для_животных_.ViewModels;
@@ -24,7 +26,7 @@ internal class ProductsListViewModel : ViewModel
     private string _rowsCount = string.Empty;
     private Product _selectedProduct;
 
-    public ProductsListViewModel(MainViewModel mainViewModel)
+    public ProductsListViewModel(MainViewModel mainViewModel, SearchProduct searchProduct)
     {
         this.mainViewModel = mainViewModel;
 
@@ -63,8 +65,8 @@ internal class ProductsListViewModel : ViewModel
             }
             try
             {
-                DB.Instance.Products.Remove(SelectedProduct);
-                DB.Instance.SaveChanges();
+                searchProduct.RemoveProductMethod(SelectedProduct);  //=---------------------------------
+
                 Products.Remove(SelectedProduct);
                 MessageBox.Show("Выбранный товар удален");
             }
@@ -180,20 +182,10 @@ internal class ProductsListViewModel : ViewModel
     {
         try
         {
-            var countAll = DB.Instance.Products.Count();
+            SearchProduct searchProduct = new AlSearchProduct();
+            var countAll = searchProduct.GetProductCount();
 
-            var productsQuery = DB.Instance.Products
-                                  .Include(p => p.ProductManufacturer)
-                                  .Include(p => p.ProductProvider)
-                                  .Include(p => p.OrderProducts)
-                                  .Include(p => p.ProductCategory)
-                                  .Where(s => s.ProductArticleNumber.Contains(SearchText) ||
-                                              s.ProductCategory.Title.Contains(SearchText) ||
-                                              s.ProductDescription.Contains(SearchText) ||
-                                              s.ProductManufacturer.Title.Contains(SearchText) ||
-                                              s.ProductTitle.Contains(SearchText) ||
-                                              s.ProductProvider.Title.Contains(SearchText));
-
+            var productsQuery = searchProduct.SearchForProductsMethod(SearchText); 
             if (SelectedManufacturer.Id != 0)
                 productsQuery = productsQuery.Where(s => s.ProductManufacturerId == SelectedManufacturer.Id);
 

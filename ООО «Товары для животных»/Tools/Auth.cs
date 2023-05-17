@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using ООО__Товары_для_животных_.Database;
 using ООО__Товары_для_животных_.Models;
+using ООО__Товары_для_животных_.Tools.Interfaces;
 
 namespace ООО__Товары_для_животных_.Tools;
 
